@@ -1120,6 +1120,7 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
         // Until the workspace is bound, ensure that we keep the wallpaper offset locked to the
         // default state, otherwise we will update to the wrong offsets in RTL
         mWorkspace.lockWallpaperToDefaultPage();
+        //EDDIE: changed function bellow (attempt to remove homescreen search)
         mWorkspace.bindAndInitFirstWorkspaceScreen(null /* recycled qsb */);
         mDragController.addDragListener(mWorkspace);
 
