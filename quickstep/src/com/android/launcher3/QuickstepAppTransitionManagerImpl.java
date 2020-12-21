@@ -59,6 +59,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import android.util.Log;
 
 import com.android.launcher3.DeviceProfile.OnDeviceProfileChangeListener;
 import com.android.launcher3.allapps.AllAppsTransitionController;
@@ -362,6 +363,8 @@ public abstract class QuickstepAppTransitionManagerImpl extends LauncherAppTrans
             appsView.setAlpha(alphas[0]);
             appsView.setTranslationY(trans[0]);
 
+            Log.d("runnable", "here1");
+
             ObjectAnimator alpha = ObjectAnimator.ofFloat(appsView, View.ALPHA, alphas);
             alpha.setDuration(CONTENT_ALPHA_DURATION);
             alpha.setInterpolator(LINEAR);
@@ -398,6 +401,10 @@ public abstract class QuickstepAppTransitionManagerImpl extends LauncherAppTrans
             launcherAnimator.play(alpha);
 
             mDragLayer.setTranslationY(trans[0]);
+
+            Log.d("runnable2", "here2");
+            
+
             ObjectAnimator transY = ObjectAnimator.ofFloat(mDragLayer, View.TRANSLATION_Y, trans);
             transY.setInterpolator(AGGRESSIVE_EASE);
             transY.setDuration(CONTENT_TRANSLATION_DURATION);

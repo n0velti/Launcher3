@@ -1025,7 +1025,8 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
     public interface LauncherOverlay {
 
         /**
-         * Touch interaction leading to overscroll has begun
+         * Touch interaction leading to over
+         * ll has begun
          */
         void onScrollInteractionBegin();
 

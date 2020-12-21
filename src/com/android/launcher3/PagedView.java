@@ -51,6 +51,7 @@ import com.android.launcher3.compat.AccessibilityManagerCompat;
 import com.android.launcher3.config.FeatureFlags;
 import com.android.launcher3.pageindicators.PageIndicator;
 import com.android.launcher3.touch.OverScroll;
+
 import com.android.launcher3.util.OverScroller;
 import com.android.launcher3.util.Thunk;
 
@@ -387,11 +388,30 @@ public abstract class PagedView<T extends View & PageIndicator> extends ViewGrou
         boolean isXBeforeFirstPage = mIsRtl ? (x > mMaxScrollX) : (x < mMinScrollX);
         boolean isXAfterLastPage = mIsRtl ? (x < mMinScrollX) : (x > mMaxScrollX);
 
+        
+
         if (!isXBeforeFirstPage && !isXAfterLastPage) {
+            Log.d("e_test", String.valueOf(isXBeforeFirstPage));
             mSpringOverScrollX = 0;
         }
 
         if (isXBeforeFirstPage) {
+            Log.d("Moving left", String.valueOf(isXBeforeFirstPage));
+
+
+            //will have to change from mCurrentPage variable bc likley not left most screen (or maybe it is nevermind)
+            //if im on left most screen, scrolling left opens search all apps/search everything
+            if(mCurrentPage == 0)
+            {
+
+                Log.d("e_AMOUNT", String.valueOf(mUnboundedScrollX));
+
+
+                return;
+            }
+
+
+
             super.scrollTo(mIsRtl ? mMaxScrollX : mMinScrollX, y);
             if (mAllowOverScroll) {
                 mWasInOverscroll = true;
@@ -402,6 +422,8 @@ public abstract class PagedView<T extends View & PageIndicator> extends ViewGrou
                 }
             }
         } else if (isXAfterLastPage) {
+            Log.d("Moving right", String.valueOf(isXAfterLastPage));
+
             super.scrollTo(mIsRtl ? mMinScrollX : mMaxScrollX, y);
             if (mAllowOverScroll) {
                 mWasInOverscroll = true;
@@ -412,6 +434,8 @@ public abstract class PagedView<T extends View & PageIndicator> extends ViewGrou
                 }
             }
         } else {
+            Log.d("e_else", "else");
+
             if (mWasInOverscroll) {
                 overScroll(0);
                 mWasInOverscroll = false;
@@ -864,6 +888,7 @@ public abstract class PagedView<T extends View & PageIndicator> extends ViewGrou
 
         switch (action & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_MOVE: {
+                Log.d("e_I_move",  "intercetp");
                 /*
                  * mIsBeingDragged == false, otherwise the shortcut would have caught it. Check
                  * whether the user has moved far enough from his original down touch.
@@ -880,6 +905,8 @@ public abstract class PagedView<T extends View & PageIndicator> extends ViewGrou
             }
 
             case MotionEvent.ACTION_DOWN: {
+                Log.d("e_I_down",  "intercept");
+
                 final float x = ev.getX();
                 final float y = ev.getY();
                 // Remember location of down touch
@@ -953,6 +980,8 @@ public abstract class PagedView<T extends View & PageIndicator> extends ViewGrou
         final int xDiff = (int) Math.abs(x - mLastMotionX);
         final int touchSlop = Math.round(touchSlopScale * mTouchSlop);
         boolean xMoved = xDiff > touchSlop;
+
+        Log.d("e_determineStart", String.valueOf(xMoved));
 
         if (xMoved) {
             // Scroll if the user moved far enough along the X axis
@@ -1058,6 +1087,10 @@ public abstract class PagedView<T extends View & PageIndicator> extends ViewGrou
 
     protected void overScroll(int amount) {
         mSpringOverScrollX = amount;
+
+        Log.d("e_mSpringOverscroll", String.valueOf(amount));
+
+
         if (mScroller.isSpringing()) {
             invalidate();
             return;
@@ -1109,6 +1142,8 @@ public abstract class PagedView<T extends View & PageIndicator> extends ViewGrou
 
         switch (action & MotionEvent.ACTION_MASK) {
         case MotionEvent.ACTION_DOWN:
+        Log.d("e_T_down",  "touch");
+
             updateIsBeingDraggedOnTouchDown();
 
             /*
@@ -1133,9 +1168,13 @@ public abstract class PagedView<T extends View & PageIndicator> extends ViewGrou
             break;
 
         case MotionEvent.ACTION_MOVE:
+        Log.d("e_T_move",  "move");
+
             if (mIsBeingDragged) {
                 // Scroll to follow the motion event
                 final int pointerIndex = ev.findPointerIndex(mActivePointerId);
+
+                Log.d("e_index", String.valueOf(pointerIndex));
 
                 if (pointerIndex == -1) return true;
 
@@ -1144,23 +1183,36 @@ public abstract class PagedView<T extends View & PageIndicator> extends ViewGrou
 
                 mTotalMotionX += Math.abs(deltaX);
 
+                Log.d("e_T_move_dragging",  String.valueOf(mTotalMotionX));
+
+
                 // Only scroll and update mLastMotionX if we have moved some discrete amount.  We
                 // keep the remainder because we are actually testing if we've moved from the last
                 // scrolled position (which is discrete).
                 if (Math.abs(deltaX) >= 1.0f) {
+                    //moving left/right only
+                
+                    Log.d("e_T_move",  "a_" + String.valueOf(deltaX));
+
                     scrollBy((int) deltaX, 0);
                     mLastMotionX = x;
                     mLastMotionXRemainder = deltaX - (int) deltaX;
                 } else {
+                    Log.d("e_T_move",  "awake");
+
                     awakenScrollBars();
                 }
             } else {
+                Log.d("e_T_move",  "determineScrolling");
+
                 determineScrollingStart(ev);
             }
             break;
 
         case MotionEvent.ACTION_UP:
             if (mIsBeingDragged) {
+                Log.d("e_T_up",  "up");
+
                 final int activePointerId = mActivePointerId;
                 final int pointerIndex = ev.findPointerIndex(activePointerId);
                 final float x = ev.getX(pointerIndex);
