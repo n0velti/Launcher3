@@ -43,6 +43,11 @@
             android:id="@+id/hotseat"
             layout="@layout/hotseat" />
 
+<!-- DO NOT CHANGE THE ID 
+         <include
+            layout="@layout/blurlayout" />
+            -->
+
         <include
             android:id="@+id/overview_panel"
             layout="@layout/overview_panel"
