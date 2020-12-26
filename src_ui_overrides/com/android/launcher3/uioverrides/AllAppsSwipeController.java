@@ -22,10 +22,12 @@ public class AllAppsSwipeController extends AbstractStateChangeTouchController {
 
     public AllAppsSwipeController(Launcher l) {
         super(l, SingleAxisSwipeDetector.VERTICAL);
+
     }
 
     @Override
     protected boolean canInterceptTouch(MotionEvent ev) {
+
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             mTouchDownEvent = ev;
         }

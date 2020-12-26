@@ -31,6 +31,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
 
@@ -116,10 +117,13 @@ public abstract class AbstractStateChangeTouchController
     @Override
     public final boolean onControllerInterceptTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            Log.d("e_D_D", String.valueOf(ev.getAction()));
             mNoIntercept = !canInterceptTouch(ev);
             if (mNoIntercept) {
                 return false;
             }
+
+            Log.d("e_D_D_C", String.valueOf(ev.getAction()));
 
             // Now figure out which direction scroll events the controller will start
             // calling the callbacks.
@@ -150,6 +154,8 @@ public abstract class AbstractStateChangeTouchController
 
     private int getSwipeDirection() {
         LauncherState fromState = mLauncher.getStateManager().getState();
+        Log.d("e_D_D_S", String.valueOf(fromState));
+
         int swipeDirection = 0;
         if (getTargetState(fromState, true /* isDragTowardPositive */) != fromState) {
             swipeDirection |= SingleAxisSwipeDetector.DIRECTION_POSITIVE;
@@ -157,6 +163,11 @@ public abstract class AbstractStateChangeTouchController
         if (getTargetState(fromState, false /* isDragTowardPositive */) != fromState) {
             swipeDirection |= SingleAxisSwipeDetector.DIRECTION_NEGATIVE;
         }
+
+        //swipe direct 2 = down from allappps
+        Log.d("e_D_D_SWIPE", String.valueOf(swipeDirection));
+
+
         return swipeDirection;
     }
 
@@ -256,6 +267,9 @@ public abstract class AbstractStateChangeTouchController
     public boolean onDrag(float displacement) {
         float deltaProgress = mProgressMultiplier * (displacement - mDisplacementShift);
         float progress = deltaProgress + mStartProgress;
+
+        Log.d("e_P", String.valueOf(progress));
+
         updateProgress(progress);
         boolean isDragTowardPositive = mSwipeDirection.isPositive(
                 displacement - mDisplacementShift);
@@ -267,6 +281,7 @@ public abstract class AbstractStateChangeTouchController
                 }
             }
         } else if (progress >= 1) {
+
             if (reinitCurrentAnimation(true, isDragTowardPositive)) {
                 mDisplacementShift = displacement;
                 if (mCanBlockFling) {
@@ -274,6 +289,7 @@ public abstract class AbstractStateChangeTouchController
                 }
             }
         } else {
+            Log.d("e_block", "block");
             mFlingBlockCheck.onEvent();
         }
 
@@ -284,14 +300,21 @@ public abstract class AbstractStateChangeTouchController
     public boolean onDrag(float displacement, MotionEvent ev) {
         if (!mIsLogContainerSet) {
             if (mStartState == ALL_APPS) {
+                Log.d("e_Normal", "apps");
+
                 mStartContainerType = LauncherLogProto.ContainerType.ALLAPPS;
             } else if (mStartState == NORMAL) {
+                Log.d("e_Normal", "normal");
                 mStartContainerType = getLogContainerTypeForNormalState(ev);
             } else if (mStartState == OVERVIEW) {
+                Log.d("e_Normal", "over");
+
                 mStartContainerType = LauncherLogProto.ContainerType.TASKSWITCHER;
             }
             mIsLogContainerSet = true;
         }
+
+        Log.d("e_displacement", String.valueOf(displacement));
         return onDrag(displacement);
     }
 

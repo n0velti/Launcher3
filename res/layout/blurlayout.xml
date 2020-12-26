@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.android.launcher3.blurkit.BlurLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:launcher="http://schemas.android.com/apk/res-auto"
+    xmlns:blurkit="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/blurLayout"
+    blurkit:blk_blurRadius="12"
+    blurkit:blk_downscaleFactor="0.12"
+    blurkit:blk_fps="60"
+    />

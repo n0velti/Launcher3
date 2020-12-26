@@ -905,6 +905,8 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
         float slope = absDeltaY / absDeltaX;
         float theta = (float) Math.atan(slope);
 
+        System.out.println("theta" + theta);
+
         if (absDeltaX > mTouchSlop || absDeltaY > mTouchSlop) {
             cancelCurrentPageLongPress();
         }
@@ -1005,6 +1007,8 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
             showPageIndicatorAtCurrentScroll();
         }
 
+        Log.d("onScrolledworkspace", String.valueOf(l) + String.valueOf(oldl));
+
         updatePageAlphaValues();
         enableHwLayersOnVisiblePages();
     }
@@ -1019,6 +1023,8 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
     protected void overScroll(int amount) {
         boolean shouldScrollOverlay = mLauncherOverlay != null && !mScroller.isSpringing() &&
                 ((amount <= 0 && !mIsRtl) || (amount >= 0 && mIsRtl));
+
+        Log.d("SCROLL", String.valueOf(amount));
 
         boolean shouldZeroOverlay = mLauncherOverlay != null && mLastOverlayScroll != 0 &&
                 ((amount >= 0 && !mIsRtl) || (amount <= 0 && mIsRtl));
@@ -1224,6 +1230,8 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
         // goToState(SPRING_LOADED) and onStartStateTransition.
         if (!workspaceInModalState() && !mIsSwitchingState && !mDragController.isDragging()) {
             int screenCenter = getScrollX() + getMeasuredWidth() / 2;
+
+            Log.d("ScreenCenter", String.valueOf(screenCenter));
             for (int i = 0; i < getChildCount(); i++) {
                 CellLayout child = (CellLayout) getChildAt(i);
                 if (child != null) {
@@ -1309,6 +1317,8 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
     private void enableHwLayersOnVisiblePages() {
         if (mChildrenLayersEnabled) {
             final int screenCount = getChildCount();
+
+            Log.d("e_screenCount", String.valueOf(screenCount));
 
             final int[] visibleScreens = getVisibleChildrenRange();
             int leftScreen = visibleScreens[0];

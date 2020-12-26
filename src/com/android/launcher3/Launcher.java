@@ -81,6 +81,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
+import com.android.launcher3.blurkit.BlurLayout;
+
 import com.android.launcher3.DropTarget.DragObject;
 import com.android.launcher3.accessibility.LauncherAccessibilityDelegate;
 import com.android.launcher3.allapps.AllAppsContainerView;
@@ -890,6 +892,7 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
         if (mLauncherCallbacks != null) {
             mLauncherCallbacks.onStop();
         }
+
         logStopAndResume(Action.Command.STOP);
 
         mAppWidgetHost.setListenIfResumed(false);
@@ -910,6 +913,7 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
         if (mLauncherCallbacks != null) {
             mLauncherCallbacks.onStart();
         }
+      //  blurLayout.startBlur();
         mAppWidgetHost.setListenIfResumed(true);
         RaceConditionTracker.onEvent(ON_START_EVT, EXIT);
     }
@@ -1000,8 +1004,10 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
     protected void onPause() {
         // Ensure that items added to Launcher are queued until Launcher returns
         InstallShortcutReceiver.enableInstallQueue(InstallShortcutReceiver.FLAG_ACTIVITY_PAUSED);
+     //   blurLayout.pauseBlur();
 
         super.onPause();
+
         mDragController.cancelDrag();
         mDragController.resetLastGestureUpTime();
         mDropTargetBar.animateToVisibility(false);
@@ -1025,7 +1031,8 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
     public interface LauncherOverlay {
 
         /**
-         * Touch interaction leading to overscroll has begun
+         * Touch interaction leading to over
+         * ll has begun
          */
         void onScrollInteractionBegin();
 
@@ -1097,6 +1104,7 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
         }
     }
 
+    //private BlurLayout blurLayout;
     /**
      * Finds all the views we need and configure them properly.
      */
@@ -1107,6 +1115,8 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
         mWorkspace.initParentViews(mDragLayer);
         mOverviewPanel = findViewById(R.id.overview_panel);
         mHotseat = findViewById(R.id.hotseat);
+
+        //blurLayout = findViewById(R.id.blurLayout);
 
         mLauncherView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION

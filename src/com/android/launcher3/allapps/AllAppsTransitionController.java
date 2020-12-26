@@ -16,6 +16,7 @@ import static com.android.launcher3.util.SystemUiController.UI_STATE_ALL_APPS;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.util.FloatProperty;
+import android.util.Log;
 import android.view.animation.Interpolator;
 
 import com.android.launcher3.DeviceProfile;
@@ -120,6 +121,8 @@ public class AllAppsTransitionController implements StateHandler, OnDeviceProfil
         mProgress = progress;
         mScrimView.setProgress(progress);
         float shiftCurrent = progress * mShiftRange;
+
+        Log.d("e_allapps", String.valueOf(shiftCurrent));
 
         mAppsView.setTranslationY(shiftCurrent);
 
@@ -241,6 +244,7 @@ public class AllAppsTransitionController implements StateHandler, OnDeviceProfil
      * TODO: This logic should go in {@link LauncherState}
      */
     private void onProgressAnimationEnd() {
+        Log.d("UPUPUP", String.valueOf(mProgress));
         if (Float.compare(mProgress, 1f) == 0) {
             mAppsView.reset(false /* animate */);
         } else if (isAllAppsExpanded()) {
