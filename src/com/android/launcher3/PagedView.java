@@ -396,20 +396,7 @@ public abstract class PagedView<T extends View & PageIndicator> extends ViewGrou
         }
 
         if (isXBeforeFirstPage) {
-            Log.d("Moving left", String.valueOf(isXBeforeFirstPage));
-
-
-            //will have to change from mCurrentPage variable bc likley not left most screen (or maybe it is nevermind)
-            //if im on left most screen, scrolling left opens search all apps/search everything
-            if(mCurrentPage == 0)
-            {
-
-                Log.d("e_AMOUNT", String.valueOf(mUnboundedScrollX));
-
-
-                return;
-            }
-
+          
 
 
             super.scrollTo(mIsRtl ? mMaxScrollX : mMinScrollX, y);
