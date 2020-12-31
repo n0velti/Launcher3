@@ -21,6 +21,8 @@ import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
 import android.util.Property;
 import android.view.View;
+import android.util.Log;
+
 
 /**
  * Utility class for setting a property with or without animation
@@ -58,6 +60,7 @@ public class PropertySetter {
 
         @Override
         public void setViewAlpha(View view, float alpha, TimeInterpolator interpolator) {
+            Log.d("e_hey" + String.valueOf(view), String.valueOf(alpha));
             if (view == null || view.getAlpha() == alpha) {
                 return;
             }

@@ -71,6 +71,9 @@ import com.android.launcher3.util.MultiValueAlpha.AlphaProperty;
 import com.android.launcher3.util.Themes;
 import com.android.launcher3.widget.WidgetsFullSheet;
 
+import android.util.Log;
+
+
 import java.util.List;
 
 
@@ -134,7 +137,7 @@ public class ScrimView extends View implements Insettable, OnChangeListener,
         mWallpaperColorInfo = WallpaperColorInfo.getInstance(context);
         mEndScrim = Themes.getAttrColor(context, R.attr.allAppsScrimColor);
 
-        mMaxScrimAlpha = 0.7f;
+        mMaxScrimAlpha = 1f;
 
         mDragHandleSize = context.getResources()
                 .getDimensionPixelSize(R.dimen.vertical_drag_handle_size);
@@ -202,6 +205,7 @@ public class ScrimView extends View implements Insettable, OnChangeListener,
     }
 
     public void setProgress(float progress) {
+        Log.d("prog", String.valueOf(progress));
         if (mProgress != progress) {
             mProgress = progress;
             updateColors();
@@ -213,12 +217,20 @@ public class ScrimView extends View implements Insettable, OnChangeListener,
     public void reInitUi() { }
 
     protected void updateColors() {
-        mCurrentFlatColor = mProgress >= 1 ? 0 : setColorAlphaBound(
+        System.out.println("e_d3" + mEndFlatColorAlpha);
+        System.out.println("e_d4" + mEndFlatColor);
+
+        mCurrentFlatColor = mProgress >= 1 ? 1 : setColorAlphaBound(
                 mEndFlatColor, Math.round((1 - mProgress) * mEndFlatColorAlpha));
+
+                System.out.println("e_d5" + mCurrentFlatColor);
+
     }
 
     protected void updateDragHandleAlpha() {
         if (mDragHandle != null) {
+            System.out.println("e_d2" + mDragHandle);
+
             mDragHandle.setAlpha(mDragHandleAlpha);
         }
     }
@@ -228,6 +240,7 @@ public class ScrimView extends View implements Insettable, OnChangeListener,
             mDragHandleAlpha = alpha;
             if (mDragHandle != null) {
                 mDragHandle.setAlpha(mDragHandleAlpha);
+                System.out.println("e_drag " + mDragHandleAlpha);
                 invalidate();
             }
         }
@@ -236,6 +249,7 @@ public class ScrimView extends View implements Insettable, OnChangeListener,
     @Override
     protected void onDraw(Canvas canvas) {
         if (mCurrentFlatColor != 0) {
+            System.out.println("e_d1" + mCurrentFlatColor);
             canvas.drawColor(mCurrentFlatColor);
         }
         drawDragHandle(canvas);
@@ -255,6 +269,8 @@ public class ScrimView extends View implements Insettable, OnChangeListener,
         if (!value && mDragHandle != null && event.getAction() == ACTION_DOWN
                 && mDragHandle.getAlpha() == 255
                 && mHitRect.contains(event.getX(), event.getY())) {
+
+                    Log.d("dragH", String.valueOf(mDragHandle.getAlpha()));
 
             final Drawable drawable = mDragHandle;
             mDragHandle = null;

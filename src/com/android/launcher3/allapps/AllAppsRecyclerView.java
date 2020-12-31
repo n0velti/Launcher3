@@ -156,8 +156,8 @@ public class AllAppsRecyclerView extends BaseRecyclerView implements LogContaine
 
     public void onSearchResultsChanged() {
         // Always scroll the view to the top so the user can see the changed results
-        scrollToTop();
-
+       // scrollToTop();
+/*
         if (mApps.hasNoFilteredResults()) {
             if (mEmptySearchBackground == null) {
                 mEmptySearchBackground = new AllAppsBackgroundDrawable(getContext());
@@ -171,6 +171,7 @@ public class AllAppsRecyclerView extends BaseRecyclerView implements LogContaine
             // not overlap with the results
             mEmptySearchBackground.setBgAlpha(0f);
         }
+        */
     }
 
     @Override

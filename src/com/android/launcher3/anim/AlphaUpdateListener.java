@@ -27,7 +27,8 @@ import android.view.ViewGroup;
  */
 public class AlphaUpdateListener extends AnimationSuccessListener
         implements AnimatorUpdateListener {
-    public static final float ALPHA_CUTOFF_THRESHOLD = 0.01f;
+            //chnaged form 0.01f to 1f
+    public static final float ALPHA_CUTOFF_THRESHOLD = 1f;
 
     private View mView;
 
@@ -52,6 +53,7 @@ public class AlphaUpdateListener extends AnimationSuccessListener
     }
 
     public static void updateVisibility(View view) {
+        System.out.println("visiisiis" + view.getAlpha());
         if (view.getAlpha() < ALPHA_CUTOFF_THRESHOLD && view.getVisibility() != View.INVISIBLE) {
             view.setVisibility(View.INVISIBLE);
         } else if (view.getAlpha() > ALPHA_CUTOFF_THRESHOLD

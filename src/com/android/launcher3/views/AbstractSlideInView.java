@@ -51,6 +51,7 @@ public abstract class AbstractSlideInView extends AbstractFloatingView
 
                 @Override
                 public void set(AbstractSlideInView view, Float value) {
+                    System.out.println("shifffintg " + value);
                     view.setTranslationShift(value);
                 }
             };

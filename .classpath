@@ -1,0 +1,31 @@
+<classpathentry kind="src" path="Launcher3/SecondaryDisplayLauncher/src"/>
+  <classpathentry kind="src" path="Launcher3/go/quickstep/src"/>
+  <classpathentry kind="src" path="Launcher3/go/src"/>
+  <classpathentry kind="src" excluding="full_lib/" path="Launcher3/iconloaderlib/src"/>
+  <classpathentry kind="src" path="Launcher3/iconloaderlib/src_full_lib"/>
+  <classpathentry kind="src" path="Launcher3/quickstep/recents_ui_overrides/src"/>
+  <classpathentry kind="src" path="Launcher3/quickstep/src"/>
+  <classpathentry kind="src" path="Launcher3/quickstep/tests/src"/>
+  <classpathentry kind="src" path="Launcher3/robolectric_tests/src"/>
+  <classpathentry kind="src" excluding="flags/|plugins/|shortcuts_overrides/|ui_overrides/" path="Launcher3/src"/>
+  <classpathentry kind="src" path="Launcher3/src_flags"/>
+  <classpathentry kind="src" path="Launcher3/src_plugins"/>
+  <classpathentry kind="src" path="Launcher3/src_shortcuts_overrides"/>
+  <classpathentry kind="src" path="Launcher3/src_ui_overrides"/>
+  <classpathentry kind="src" path="Launcher3/tests/dummy_app/src"/>
+  <classpathentry kind="src" path="Launcher3/tests/src"/>
+  <classpathentry kind="src" path="Launcher3/tests/tapl"/>
+
+  <classpathentry kind="src" path="out/soong/.intermediates/packages/apps/Launcher3/iconloaderlib/iconloader/android_common/gen/aapt2/R"/>
+  <classpathentry kind="src" path="out/soong/.intermediates/packages/apps/Launcher3/iconloaderlib/iconloader_base/android_common/gen/aapt2/R"/>
+  
+
+  <classpathentry kind="src" path="out/target/common/obj/APPS/Launcher3QuickStep_intermediates/aapt2"/>
+  <classpathentry kind="src" path="out/target/common/obj/APPS/Launcher3QuickStep_intermediates/srcjars"/>
+
+  
+<classpathentry kind="src" path="out/target/common/obj/JAVA_LIBRARIES/Launcher3CommonDepsLib_intermediates/aapt2"/>
+  <classpathentry kind="src" path="out/target/common/obj/JAVA_LIBRARIES/Launcher3CommonDepsLib_intermediates/proto/src"/>
+  <classpathentry kind="src" path="out/target/common/obj/JAVA_LIBRARIES/Launcher3CommonDepsLib_intermediates/srcjars"/>
+  <classpathentry kind="src" path="out/target/common/obj/JAVA_LIBRARIES/Launcher3QuickStepLib_intermediates/aapt2"/>
+  <classpathentry kind="src" path="out/target/common/obj/JAVA_LIBRARIES/Launcher3QuickStepLib_intermediates/srcjars"/>

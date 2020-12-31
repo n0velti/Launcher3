@@ -76,10 +76,15 @@ public class MultiValueAlpha {
 
         AlphaProperty(int myMask) {
             mMyMask = myMask;
+            System.out.println("myMask " + myMask);
         }
 
         public void setValue(float value) {
+            System.out.println("before" + value);
+
             if (mValue == value) {
+                System.out.println("returning" + value);
+
                 return;
             }
 
@@ -99,9 +104,11 @@ public class MultiValueAlpha {
             mValue = value;
 
             mView.setAlpha(mOthers * mValue);
+            System.out.println("alpppppha" + (mValue));
         }
 
         public float getValue() {
+            System.out.println("getting value " + mValue);
             return mValue;
         }
 

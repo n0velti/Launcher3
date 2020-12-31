@@ -89,7 +89,10 @@ public class AppsSearchContainerLayout extends ExtendedEditText
         Selection.setSelection(mSearchQueryBuilder, 0);
 
         mFixedTranslationY = getTranslationY();
-        mMarginTopAdjusting = mFixedTranslationY - getPaddingTop();
+
+        float extraSearchTopPadding = 150;
+
+        mMarginTopAdjusting = mFixedTranslationY - getPaddingTop() - extraSearchTopPadding;
 
         setHint(prefixTextWithIcon(getContext(), R.drawable.ic_allapps_search, getHint()));
     }
@@ -219,6 +222,7 @@ public class AppsSearchContainerLayout extends ExtendedEditText
     @Override
     public void setContentVisibility(int visibleElements, PropertySetter setter,
             Interpolator interpolator) {
-        setter.setViewAlpha(this, (visibleElements & ALL_APPS_HEADER) != 0 ? 1 : 0, interpolator);
+                //tryingt o change search area alpha
+        setter.setViewAlpha(this, (visibleElements & ALL_APPS_HEADER) != 0 ? 1 : 0f, interpolator);
     }
 }

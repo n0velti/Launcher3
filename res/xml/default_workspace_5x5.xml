@@ -41,11 +41,20 @@
     </resolve>
 
 
+   <resolve
+        launcher:screen="2"
+        launcher:x="1"
+        launcher:y="0" >
+	    <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_GALLERY;end" />
+	    <favorite launcher:uri="#Intent;type=images/*;end" />
+
+    </resolve>
+
 
     <resolve
         launcher:container="-101"
-        launcher:screen="4"
-        launcher:x="4"
+        launcher:screen="3"
+        launcher:x="2"
         launcher:y="0" >
         <favorite launcher:uri="#Intent;action=android.media.action.STILL_IMAGE_CAMERA;end" />
         <favorite launcher:uri="#Intent;action=android.intent.action.CAMERA_BUTTON;end" />
@@ -58,15 +67,6 @@
         launcher:y="-1" >
 	    <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_EMAIL;end" />
 	    <favorite launcher:uri="mailto:" />
-
-    </resolve>
-
-    <resolve
-        launcher:screen="0"
-        launcher:x="1"
-        launcher:y="-1" >
-	    <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_GALLERY;end" />
-	    <favorite launcher:uri="#Intent;type=images/*;end" />
 
     </resolve>
 

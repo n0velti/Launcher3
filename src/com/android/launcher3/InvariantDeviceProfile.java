@@ -69,7 +69,7 @@ public class InvariantDeviceProfile {
 
     private static final String KEY_IDP_GRID_NAME = "idp_grid_name";
 
-    private static final float ICON_SIZE_DEFINED_IN_APP_DP = 48;
+    private static final float ICON_SIZE_DEFINED_IN_APP_DP = 64;
 
     public static final int CHANGE_FLAG_GRID = 1 << 0;
     public static final int CHANGE_FLAG_ICON_PARAMS = 1 << 1;

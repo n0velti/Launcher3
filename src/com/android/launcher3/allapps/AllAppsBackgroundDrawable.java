@@ -126,6 +126,7 @@ public class AllAppsBackgroundDrawable extends Drawable {
     public void animateBgAlpha(float finalAlpha, int duration) {
         int finalAlphaI = (int) (finalAlpha * 255f);
         if (getAlpha() != finalAlphaI) {
+            System.out.println("e_back " + finalAlphaI);
             mBackgroundAnim = cancelAnimator(mBackgroundAnim);
             mBackgroundAnim = ObjectAnimator.ofInt(this, LauncherAnimUtils.DRAWABLE_ALPHA,
                     finalAlphaI);
@@ -138,7 +139,7 @@ public class AllAppsBackgroundDrawable extends Drawable {
      * Sets the background alpha immediately.
      */
     public void setBgAlpha(float finalAlpha) {
-        int finalAlphaI = (int) (finalAlpha * 255f);
+       int finalAlphaI = (int) (finalAlpha * 255f);
         if (getAlpha() != finalAlphaI) {
             mBackgroundAnim = cancelAnimator(mBackgroundAnim);
             setAlpha(finalAlphaI);

@@ -102,7 +102,7 @@ public class AllAppsTransitionController implements StateHandler, OnDeviceProfil
         setScrollRangeDelta(mScrollRangeDelta);
 
         if (mIsVerticalLayout) {
-            mAppsView.getAlphaProperty(APPS_VIEW_ALPHA_CHANNEL_INDEX).setValue(1);
+            mAppsView.getAlphaProperty(APPS_VIEW_ALPHA_CHANNEL_INDEX).setValue(0);
             mLauncher.getHotseat().setTranslationY(0);
             mLauncher.getWorkspace().getPageIndicator().setTranslationY(0);
         }
@@ -159,6 +159,7 @@ public class AllAppsTransitionController implements StateHandler, OnDeviceProfil
     @Override
     public void setStateWithAnimation(LauncherState toState,
             AnimatorSetBuilder builder, AnimationConfig config) {
+                
         float targetProgress = toState.getVerticalProgress(mLauncher);
         if (Float.compare(mProgress, targetProgress) == 0) {
             setAlphas(toState, config, builder);
@@ -175,14 +176,16 @@ public class AllAppsTransitionController implements StateHandler, OnDeviceProfil
         Interpolator interpolator = config.userControlled ? LINEAR : toState == OVERVIEW
                 ? builder.getInterpolator(ANIM_OVERVIEW_SCALE, FAST_OUT_SLOW_IN)
                 : FAST_OUT_SLOW_IN;
+
         Animator anim = createSpringAnimation(mProgress, targetProgress);
         anim.setDuration(config.duration);
-        anim.setInterpolator(builder.getInterpolator(ANIM_VERTICAL_PROGRESS, interpolator));
+        anim.setInterpolator(builder.getInterpolator(ANIM_VERTICAL_PROGRESS, LINEAR));
         anim.addListener(getProgressAnimatorListener());
 
         builder.play(anim);
 
         setAlphas(toState, config, builder);
+        
     }
 
     public Animator createSpringAnimation(float... progressValues) {
@@ -196,6 +199,7 @@ public class AllAppsTransitionController implements StateHandler, OnDeviceProfil
     }
 
     public void setAlphas(int visibleElements, AnimationConfig config, AnimatorSetBuilder builder) {
+        
         PropertySetter setter = config == null ? NO_ANIM_PROPERTY_SETTER
                 : config.getPropertySetter(builder);
         boolean hasHeaderExtra = (visibleElements & ALL_APPS_HEADER_EXTRA) != 0;
@@ -203,14 +207,17 @@ public class AllAppsTransitionController implements StateHandler, OnDeviceProfil
 
         Interpolator allAppsFade = builder.getInterpolator(ANIM_ALL_APPS_FADE, LINEAR);
         Interpolator headerFade = builder.getInterpolator(ANIM_ALL_APPS_HEADER_FADE, allAppsFade);
+
         setter.setViewAlpha(mAppsView.getContentView(), hasAllAppsContent ? 1 : 0, allAppsFade);
         setter.setViewAlpha(mAppsView.getScrollBar(), hasAllAppsContent ? 1 : 0, allAppsFade);
+        
         mAppsView.getFloatingHeaderView().setContentVisibility(hasHeaderExtra, hasAllAppsContent,
                 setter, headerFade, allAppsFade);
         mAppsView.getSearchUiManager().setContentVisibility(visibleElements, setter, allAppsFade);
 
         setter.setInt(mScrimView, ScrimView.DRAG_HANDLE_ALPHA,
                 (visibleElements & VERTICAL_SWIPE_INDICATOR) != 0 ? 255 : 0, allAppsFade);
+                
     }
 
     public AnimatorListenerAdapter getProgressAnimatorListener() {

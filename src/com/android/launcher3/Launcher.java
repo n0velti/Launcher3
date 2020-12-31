@@ -81,7 +81,6 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
-import com.android.launcher3.blurkit.BlurLayout;
 
 import com.android.launcher3.DropTarget.DragObject;
 import com.android.launcher3.accessibility.LauncherAccessibilityDelegate;
@@ -334,6 +333,8 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
         mStateManager = new LauncherStateManager(this);
         UiFactory.onCreate(this);
 
+
+
         mAppWidgetManager = AppWidgetManagerCompat.getInstance(this);
         mAppWidgetHost = new LauncherAppWidgetHost(this,
                 appWidgetId -> getWorkspace().removeWidget(appWidgetId));
@@ -410,8 +411,8 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
                     mAppsView.getAlphaProperty(APPS_VIEW_ALPHA_CHANNEL_INDEX).setValue(alpha);
                     mScrimView.getAlphaProperty(SCRIM_VIEW_ALPHA_CHANNEL_INDEX).setValue(alpha);
                 } else {
-                    mAppsView.getAlphaProperty(APPS_VIEW_ALPHA_CHANNEL_INDEX).setValue(1f);
-                    mScrimView.getAlphaProperty(SCRIM_VIEW_ALPHA_CHANNEL_INDEX).setValue(1f);
+                    mAppsView.getAlphaProperty(APPS_VIEW_ALPHA_CHANNEL_INDEX).setValue(alpha);
+                    mScrimView.getAlphaProperty(SCRIM_VIEW_ALPHA_CHANNEL_INDEX).setValue(alpha);
                 }
             }
         });
@@ -888,7 +889,6 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
     @Override
     protected void onStop() {
         super.onStop();
-
         if (mLauncherCallbacks != null) {
             mLauncherCallbacks.onStop();
         }
@@ -910,10 +910,12 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
     protected void onStart() {
         RaceConditionTracker.onEvent(ON_START_EVT, ENTER);
         super.onStart();
+
+       
+
         if (mLauncherCallbacks != null) {
             mLauncherCallbacks.onStart();
         }
-      //  blurLayout.startBlur();
         mAppWidgetHost.setListenIfResumed(true);
         RaceConditionTracker.onEvent(ON_START_EVT, EXIT);
     }
@@ -1004,7 +1006,6 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
     protected void onPause() {
         // Ensure that items added to Launcher are queued until Launcher returns
         InstallShortcutReceiver.enableInstallQueue(InstallShortcutReceiver.FLAG_ACTIVITY_PAUSED);
-     //   blurLayout.pauseBlur();
 
         super.onPause();
 
@@ -1104,7 +1105,9 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
         }
     }
 
-    //private BlurLayout blurLayout;
+
+
+
     /**
      * Finds all the views we need and configure them properly.
      */
@@ -1116,8 +1119,9 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
         mOverviewPanel = findViewById(R.id.overview_panel);
         mHotseat = findViewById(R.id.hotseat);
 
-        //blurLayout = findViewById(R.id.blurLayout);
+        
 
+    
         mLauncherView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);

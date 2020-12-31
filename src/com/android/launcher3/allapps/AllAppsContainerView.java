@@ -333,9 +333,12 @@ public class AllAppsContainerView extends SpringRelativeLayout implements DragSo
             mlp.leftMargin = insets.left;
             mlp.rightMargin = insets.right;
             setPadding(grid.workspacePadding.left, 0, grid.workspacePadding.right, 0);
+            System.out.println("one: " + grid.workspacePadding.left);
         } else {
             mlp.leftMargin = mlp.rightMargin = 0;
             setPadding(0, 0, 0, 0);
+            System.out.println("two: ");
+
         }
         setLayoutParams(mlp);
 
